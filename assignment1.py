@@ -30,7 +30,35 @@ def day_of_week(date: str) -> str:
 
 def leap_year(year: int) -> bool:
     "return true if the year is a leap year"
-    ...
+
+#Not a leap year
+    lyear = year % 4
+
+    if lyear == 0:
+
+        leap_flag = True
+
+    else:
+
+        leap_flag = False
+
+#Not a leap year
+    lyear = year % 100
+
+    if lyear == 0:
+
+        leap_flag = False
+
+#Is a leap year
+    lyear = year % 400
+
+    if lyear == 0:
+
+        leap_flag = True
+
+#If leap year will return True
+    return leap_flag
+
 
 def mon_max(month:int, year:int) -> int:
     "returns the maximum day for a given month. Includes leap year check"
