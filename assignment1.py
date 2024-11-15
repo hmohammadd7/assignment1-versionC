@@ -85,6 +85,7 @@ def after(date: str) -> str:
     Return the date for the next day of the given date in DD/MM/YYYY format.
     This function has been tested to work for year after 1582
     '''
+
 #Next day
     day, mon, year = (int(x) for x in date.split('/'))
 
@@ -163,7 +164,71 @@ def usage():
 
 def valid_date(date: str) -> bool:
     "check validity of date"
-    ...
+
+#To split the dates into parts
+    parts = date.split('/')
+
+#To check day, month and year
+    if len(parts) != 3:
+
+        return False
+
+    day_str = parts[0]
+
+    mon_str = parts[1]
+
+    year_str = parts[2]
+
+#To check for numbers
+    day_is_digit = day_str.isdigit()
+
+    month_is_digit = mon_str.isdigit()
+
+    year_is_digit = year_str.isdigit()
+
+    if day_is_digit == False:
+
+        return False
+
+    if month_is_digit == False:
+
+        return False
+
+    if year_is_digit == False:
+
+        return False
+
+
+    day = int(day_str)
+
+    mon = int(mon_str)
+
+    year = int(year_str)
+
+#To check for month
+    if mon < 1:
+
+        return False
+
+    if mon > 12:
+
+        return False
+
+#To see if number of days are in a month
+    days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+#To check leap year
+    if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+
+        days_in_month[1] = 29  #To check the leap year for February
+
+#To confirm the days of the month
+    if day < 1 or day > days_in_month[mon - 1]:
+
+        return False
+
+    return True  #To check if the date is valid
+
 
 def day_iter(start_date: str, num: int) -> str:
     "iterates from start date by num to return end date in DD/MM/YYYY"
