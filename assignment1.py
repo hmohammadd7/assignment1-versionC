@@ -60,6 +60,7 @@ def leap_year(year: int) -> bool:
     return leap_flag
 
 
+
 def mon_max(month:int, year:int) -> int:
     "returns the maximum day for a given month. Includes leap year check"
 
@@ -160,6 +161,7 @@ def before(date: str) -> str:
 def usage():
     "Print a usage message to the user"
     print("Usage: " + str(sys.argv[0]) + " DD/MM/YYYY NN")
+    print("The user input is invalid")
     sys.exit()
 
 def valid_date(date: str) -> bool:
@@ -230,6 +232,23 @@ def valid_date(date: str) -> bool:
     return True  #To check if the date is valid
 
 
+
+def check_number(num: str) -> bool:
+    """
+    check second argument is the right number
+    """
+
+#If number starts with negative sign
+    if num[0] == '-':
+
+#If other strings are numbers
+        return num[1:].isdigit()
+
+#Checking if all strings are numbers
+    return num.isdigit()
+
+
+
 def day_iter(start_date: str, num: int) -> str:
     "iterates from start date by num to return end date in DD/MM/YYYY"
 
@@ -254,10 +273,34 @@ def day_iter(start_date: str, num: int) -> str:
     return date
 
 
+
 if __name__ == "__main__":
-    # check length of arguments
-    # check first arg is a valid date
-    # check that second arg is a valid number (+/-)
-    # call day_iter function to get end date, save to x
-    # print(f'The end date is {day_of_week(x)}, {x}.')
+
+#Check length of arguments
+    if len(sys.argv) != 3:
+        usage()
+
+    start_date = sys.argv[1]
+
+    days_count_str = sys.argv[2]
+
+#Check first arg is a valid date
+    if valid_date(start_date) == False:
+        usage()
+
+#Check that second arg is a valid number (+/-)
+    if check_number(days_count_str) == False:
+        usage()
+
+#Convert second argument to integer "int()"
+    days_count = int(days_count_str)
+
+#Call day_iter function to get end date, save to x
+    final_date = day_iter(start_date, days_count)
+
+#Print(f'The end date is {day_of_week(x)}, {x}.')
+    weekday_name = day_of_week(final_date)
+
+    print(f"The end date is {weekday_name}, {final_date}.")
+
     pass
